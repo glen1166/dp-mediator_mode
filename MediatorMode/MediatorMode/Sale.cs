@@ -6,19 +6,21 @@ using System.Threading.Tasks;
 
 namespace MediatorMode
 {
-    public class Sale
+    public class Sale : AbstractColleague
     {
-        public void sellIBMComputer(int number)
+        public Sale(AbstractMediator _mediator): base(_mediator)
         {
-            Stock stock = new Stock();
-            Purchase purchase = new Purchase();
-            if (stock.getStockNumber() < number)
-            {
-                purchase.buyIBMcomputer(number);
-            }
 
-            Console.WriteLine("销售IBM电脑" + number + " 台");
-            stock.decrease(number);
+        }
+
+        public void sellComputer(int number)
+        {
+            this.mediator.execute("sale.sell");
+        }
+
+        public void offSale()
+        {
+            this.mediator.execute("sale.offsell");   
         }
 
         public int getSaleStatus()
@@ -27,12 +29,6 @@ namespace MediatorMode
             int saleStatus = rand.Next(100);
             Console.WriteLine("IBM电脑的销售情况为：" + saleStatus);
             return saleStatus;
-        }
-
-        public void offSale()
-        {
-            Stock stock = new Stock();
-            Console.WriteLine("折价销售IBM电脑" + stock.getStockNumber() + "台");
         }
 
     }

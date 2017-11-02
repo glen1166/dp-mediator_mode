@@ -6,23 +6,16 @@ using System.Threading.Tasks;
 
 namespace MediatorMode
 {
-    public class Purchase
+    public class Purchase : AbstractColleague
     {
-        public void buyIBMcomputer(int number)
+        public Purchase(AbstractMediator _mediator): base(_mediator)
         {
-            Stock stock = new Stock();
-            Sale sale = new Sale();
-            int saleStatus = sale.getSaleStatus();
-            if (saleStatus > 80)
-            {
-                Console.WriteLine("采购IBM电脑:" + number + "台");
-                stock.increase(number);
-            }
-            else
-            {
-                int buyNumber = number / 2;
-                Console.WriteLine("采购IBM电脑：" + buyNumber + "台");
-            }
+
+        }
+
+        public void buyComputer(int number)
+        {
+            this.mediator.execute("purchase.buy");
         }
         public void refuseBuyIBM()
         {
